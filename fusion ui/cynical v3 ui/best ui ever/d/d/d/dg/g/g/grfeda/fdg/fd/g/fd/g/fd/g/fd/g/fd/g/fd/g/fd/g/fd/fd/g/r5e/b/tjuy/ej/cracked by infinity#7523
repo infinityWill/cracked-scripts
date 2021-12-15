@@ -1,0 +1,1054 @@
+(nil)(nil, "\n")
+pcall(function()
+  va.UserInputService.InputBegan:Connect(function(a, b)
+    a = a
+    if va.destroyed then
+      return
+    end
+    if b then
+    elseif not va.binding then
+      for fg, fh in next, va.binds, nil do
+        if fh.location[fg] and vb(fh.location[fg], a) then
+          fh.callback()
+        end
+      end
+    end
+  end)
+end)
+return {
+  flags = {},
+  objstorage = {},
+  funcstorage = {},
+  binds = {},
+  binding = false,
+  tabinfo = {button = nil, tab = nil},
+  destroyed = false,
+  ChangingTab = false,
+  UpdateSlider = function(a, b, c, d, e, g)
+    a = a
+    if c then
+    end
+    if g then
+      c = c or tonumber(tostring(string.format("%.2f", d + (e - d) * math.clamp((c - d) / (e - d), 0, 1))))
+    else
+      c = c or math.floor(d + (e - d) * math.clamp((c - d) / (e - d), 0, 1))
+    end
+    vb.flags[b] = c
+    a.objstorage[b].SliderHolder.SliderVal.Text = tostring(c)
+    vc:Tween(a.objstorage[b].SliderBar.SliderFill, {
+      0,05,
+      "Linear",
+      "InOut"
+    }, {
+      Size = UDim2.new(math.clamp((c - d) / (e - d), 0, 1), 0, 1, 0)
+    })
+    a.funcstorage[b](tonumber(c))
+    return tonumber(c)
+  end,
+  UpdateToggle = function(a, b, c)
+    a = a
+    if not va.objstorage[b] then
+      return
+    end
+    if va.flags[b] == c then
+      return
+    end
+    c = c or not va.flags[b]
+    va.flags[b] = c
+    if c then
+    end
+    if c then
+    end
+    vb:Tween(va.objstorage[b].ToggleDisplay.ToggleSwitch, {
+      0,15,
+      "Sine",
+      "InOut"
+    }, {
+      Position = UDim2.new(0, 16, 0,5, 0) or UDim2.new(0, 3, 0,5, 0),
+      BackgroundColor3 = vc[3] or vc[1]
+    })
+    spawn(function()
+      va(vb)
+    end)
+  end,
+  CreateUI = function(a, b)
+    a = a
+    a.ProjectName = b or {}.ProjectName or "UILibrary"
+    va.UiParent = (function()
+      if gethui then
+        return gethui()
+      end
+      if get_hidden_gui then
+        return get_hidden_gui()
+      end
+      if syn and syn.protect_gui then
+        syn.protect_gui(va)
+      end
+      return vb.CoreGui
+    end)()
+    Instance.new("ScreenGui").Name = a.ProjectName
+    Instance.new("ScreenGui").Parent = va.UiParent
+    Instance.new("ScreenGui").ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    va.ui = Instance.new("ScreenGui")
+    Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("ScreenGui"), "Drag"
+    Instance.new("Frame").BackgroundColor3 = vc[1]
+    Instance.new("Frame").BorderSizePixel = 0
+    Instance.new("Frame").Position = UDim2.new(0,235238984, 0, 0,119544595, 0)
+    Instance.new("Frame").Size = UDim2.new(0, 564, 0, 400)
+    Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "DragHold"
+    Instance.new("Frame").BackgroundTransparency = 1
+    Instance.new("Frame").ZIndex = 69
+    Instance.new("Frame").Position = UDim2.new(0, 0, 0, 0)
+    Instance.new("Frame").Size = UDim2.new(1, 0, 0, 30)
+    Instance.new("Frame").BorderSizePixel = 0
+    vd:MakeDraggable(Instance.new("Frame"), (Instance.new("Frame")))
+    Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "Notifications"
+    Instance.new("Frame").BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Instance.new("Frame").BackgroundTransparency = 1
+    Instance.new("Frame").BorderSizePixel = 0
+    Instance.new("Frame").Position = UDim2.new(1,02304959, 0, 0, 0)
+    Instance.new("Frame").Size = UDim2.new(0, 207, 0, 400)
+    Instance.new("UIListLayout").Parent, Instance.new("UIListLayout").Name = Instance.new("Frame"), "lol"
+    Instance.new("UIListLayout").HorizontalAlignment = Enum.HorizontalAlignment.Left
+    Instance.new("UIListLayout").SortOrder = Enum.SortOrder.LayoutOrder
+    Instance.new("UIListLayout").Padding = UDim.new(0, 4)
+    Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "DragC"
+    Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "Main"
+    Instance.new("Frame").BackgroundColor3 = vc[2]
+    Instance.new("Frame").BorderSizePixel = 0
+    Instance.new("Frame").Position = UDim2.new(0,011406865, 0, 0,0149999997, 0)
+    Instance.new("Frame").Size = UDim2.new(0, 551, 0, 388)
+    Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "MainC"
+    Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "SideBar"
+    Instance.new("Frame").BackgroundColor3 = vc[1]
+    Instance.new("Frame").BorderSizePixel = 0
+    Instance.new("Frame").Position = UDim2.new(0,0108892918, 0, 0,0154639175, 0)
+    Instance.new("Frame").Size = UDim2.new(0, 124, 0, 376)
+    Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "SideBarC"
+    Instance.new("TextLabel").Parent, Instance.new("TextLabel").Name = Instance.new("Frame"), "Title"
+    Instance.new("TextLabel").BackgroundColor3 = vc[4]
+    Instance.new("TextLabel").BackgroundTransparency = 1
+    Instance.new("TextLabel").Size = UDim2.new(0, 124, 0, 32)
+    Instance.new("TextLabel").Text, Instance.new("TextLabel").Font = b or {}.UiText or "UI Library", Enum.Font.GothamBold
+    Instance.new("TextLabel").TextColor3 = vc[4]
+    Instance.new("TextLabel").TextSize = 16
+    Instance.new("ScrollingFrame").Parent, Instance.new("ScrollingFrame").Name = Instance.new("Frame"), "TBtns"
+    Instance.new("ScrollingFrame").Active = true
+    Instance.new("ScrollingFrame").BackgroundColor3 = vc[4]
+    Instance.new("ScrollingFrame").BackgroundTransparency = 1
+    Instance.new("ScrollingFrame").Position = UDim2.new(0, 0, 0,0851063803, 0)
+    Instance.new("ScrollingFrame").Size = UDim2.new(0, 124, 0, 344)
+    Instance.new("ScrollingFrame").ScrollBarThickness = 0
+    Instance.new("UIListLayout").Parent, Instance.new("UIListLayout").Name = Instance.new("ScrollingFrame"), "TBtnsL"
+    Instance.new("UIListLayout").HorizontalAlignment = Enum.HorizontalAlignment.Center
+    Instance.new("UIListLayout").SortOrder = Enum.SortOrder.LayoutOrder
+    Instance.new("UIPadding").Parent, Instance.new("UIPadding").Name = Instance.new("ScrollingFrame"), "TBtnsP"
+    Instance.new("UIPadding").PaddingTop = UDim.new(0, 4)
+    Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "TabHolder"
+    Instance.new("Frame").BackgroundColor3 = vc[1]
+    Instance.new("Frame").BorderSizePixel = 0
+    Instance.new("Frame").Position = UDim2.new(0,246823952, 0, 0,0154639175, 0)
+    Instance.new("Frame").Size = UDim2.new(0, 409, 0, 376)
+    Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "TabHolderC"
+    Instance.new("UIListLayout"):GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+      va.CanvasSize = UDim2.new(0, 0, 0, vb.AbsoluteContentSize.Y + 4)
+    end)
+    function va.CreateNotification(a, b, c, d, e)
+      a = a
+      Instance.new("Frame").Name = "Notification"
+      Instance.new("Frame").Parent = va
+      Instance.new("Frame").BackgroundColor3 = Color3.fromRGB(37, 37, 37)
+      Instance.new("Frame").BorderSizePixel = 0
+      Instance.new("Frame").ClipsDescendants = true
+      Instance.new("Frame").Size = UDim2.new(0, 140, 0, 0)
+      Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+      Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "NotificationC"
+      Instance.new("TextLabel").Parent, Instance.new("TextLabel").Name = Instance.new("Frame"), "NotificationTitle"
+      Instance.new("TextLabel").BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+      Instance.new("TextLabel").BackgroundTransparency = 1
+      Instance.new("TextLabel").BorderSizePixel = 0
+      Instance.new("TextLabel").Size = UDim2.new(0, 235, 0, 26)
+      Instance.new("TextLabel").Font = Enum.Font.GothamBold
+      Instance.new("TextLabel").Text = "  " .. (b or "Hello, World!")
+      Instance.new("TextLabel").TextColor3 = Color3.fromRGB(255, 255, 255)
+      Instance.new("TextLabel").TextSize = 14
+      Instance.new("TextLabel").TextXAlignment = Enum.TextXAlignment.Left
+      Instance.new("TextLabel").Parent, Instance.new("TextLabel").Name = Instance.new("Frame"), "NotificationText"
+      Instance.new("TextLabel").BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+      Instance.new("TextLabel").BackgroundTransparency = 1
+      Instance.new("TextLabel").BorderSizePixel = 0
+      Instance.new("TextLabel").Position = UDim2.new(0, 0, 0,519841313, 0)
+      Instance.new("TextLabel").Size = UDim2.new(0, 253, 0, 22)
+      Instance.new("TextLabel").Font = Enum.Font.Gotham
+      Instance.new("TextLabel").Text = "  " .. (c or "Hello, World!")
+      Instance.new("TextLabel").TextColor3 = Color3.fromRGB(255, 255, 255)
+      Instance.new("TextLabel").TextSize = 14
+      Instance.new("TextLabel").TextXAlignment = Enum.TextXAlignment.Left
+      Instance.new("TextLabel").Size = UDim2.new(0, Instance.new("TextLabel").TextBounds.X, 0, 22)
+      if Instance.new("TextLabel").TextBounds.X > 100 then
+        Instance.new("Frame").Size = UDim2.new(0, Instance.new("TextLabel").TextBounds.X + 40, 0, 0)
+      end
+      Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "NotiHolder"
+      Instance.new("Frame").BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+      Instance.new("Frame").BackgroundTransparency = 1
+      Instance.new("Frame").BorderSizePixel = 0
+      Instance.new("Frame").Size = UDim2.new(1, 0, 1, 0)
+      Instance.new("UIListLayout").Parent, Instance.new("UIListLayout").Name = Instance.new("Frame"), "NotiHolderL"
+      Instance.new("UIListLayout").HorizontalAlignment = Enum.HorizontalAlignment.Right
+      Instance.new("UIListLayout").SortOrder = Enum.SortOrder.LayoutOrder
+      Instance.new("UIListLayout").Padding = UDim.new(0, 4)
+      if e or false then
+        Instance.new("TextButton").Parent, Instance.new("TextButton").Name = Instance.new("Frame"), "Close"
+        Instance.new("TextButton").BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Instance.new("TextButton").BackgroundTransparency = 1
+        Instance.new("TextButton").Position = UDim2.new(0,90216887, 0, 0, 0)
+        Instance.new("TextButton").Size = UDim2.new(0, 26, 0, 26)
+        Instance.new("TextButton").Font = Enum.Font.GothamBold
+        Instance.new("TextButton").Text = "X"
+        Instance.new("TextButton").TextColor3 = Color3.fromRGB(255, 255, 255)
+        Instance.new("TextButton").TextSize = 14
+        Instance.new("TextButton").MouseButton1Click:Connect(function()
+          if va then
+            return
+          end
+          vb:Tween(vc, {
+            0,2,
+            "Sine",
+            "InOut"
+          }, {
+            Size = UDim2.new(0, vd.Size.X, 0, 56)
+          })
+          wait(0,22)
+          vc:Destroy()
+        end)
+      end
+      vb:Tween(Instance.new("Frame"), {
+        0,2,
+        "Sine",
+        "InOut"
+      }, {
+        Size = UDim2.new(0, Instance.new("TextLabel").TextBounds.X + 40, 0, 56)
+      })
+      wait(d);
+      (function()
+        if va then
+          return
+        end
+        vb:Tween(vc, {
+          0,2,
+          "Sine",
+          "InOut"
+        }, {
+          Size = UDim2.new(0, vd.Size.X, 0, 56)
+        })
+        wait(0,22)
+        vc:Destroy()
+      end)()
+    end
+    return {
+      CreateCategory = function(a, b)
+        a = a
+        Instance.new("TextButton").Name = "TabOpenBtn"
+        Instance.new("TextButton").Parent = va
+        Instance.new("TextButton").BackgroundColor3 = vb[1]
+        Instance.new("TextButton").BorderColor3 = vb[6]
+        Instance.new("TextButton").Position = UDim2.new(-0,209677413, 0, 0,0116279069, 0)
+        Instance.new("TextButton").Size = UDim2.new(0, 176, 0, 31)
+        Instance.new("TextButton").AutoButtonColor = false
+        Instance.new("TextButton").Text, Instance.new("TextButton").Font = b or "Tab", Enum.Font.Gotham
+        Instance.new("TextButton").TextColor3 = vb[4]
+        Instance.new("TextButton").TextSize = 14
+        Instance.new("TextButton").BorderMode = Enum.BorderMode.Inset
+        Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("TextButton"), "TabOpenBtnDetail"
+        Instance.new("Frame").BackgroundColor3 = vb[1]
+        Instance.new("Frame").BorderColor3 = vb[1]
+        Instance.new("Frame").Position = UDim2.new(0,147727266, 0, 0,933333337, 0)
+        Instance.new("Frame").Size = UDim2.new(0, 124, 0, 2)
+        Instance.new("ScrollingFrame").Name = "Tab"
+        Instance.new("ScrollingFrame").Parent = vc
+        Instance.new("ScrollingFrame").BackgroundColor3 = vb[4]
+        Instance.new("ScrollingFrame").BackgroundTransparency = 1
+        Instance.new("ScrollingFrame").Size = UDim2.new(0, 409, 0, 376)
+        Instance.new("ScrollingFrame").ScrollBarThickness = 0
+        Instance.new("ScrollingFrame").Visible = false
+        Instance.new("UIListLayout").Parent, Instance.new("UIListLayout").Name = Instance.new("ScrollingFrame"), "TabL"
+        Instance.new("UIListLayout").HorizontalAlignment = Enum.HorizontalAlignment.Center
+        Instance.new("UIListLayout").SortOrder = Enum.SortOrder.LayoutOrder
+        Instance.new("UIListLayout").Padding = UDim.new(0, 4)
+        Instance.new("UIPadding").Parent, Instance.new("UIPadding").Name = Instance.new("ScrollingFrame"), "TabP"
+        Instance.new("UIPadding").PaddingTop = UDim.new(0, 4)
+        if not vd.tabinfo.button then
+          vd.tabinfo = {
+            button = Instance.new("TextButton"),
+            tab = Instance.new("ScrollingFrame")
+          }
+          Instance.new("TextButton").BorderColor3 = vb[3]
+          Instance.new("ScrollingFrame").Visible = true
+        end
+        Instance.new("TextButton").MouseButton1Click:Connect(function()
+          va:Ripple(vb)
+          va:ChangeTab({vb, vc})
+        end)
+        Instance.new("UIListLayout"):GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+          va.CanvasSize = UDim2.new(0, 0, 0, vb.AbsoluteContentSize.Y + 8)
+        end)
+        return {
+          CreateSection = function(a, b)
+            a = a
+            Instance.new("Frame").Name = "Section"
+            Instance.new("Frame").Parent = va
+            Instance.new("Frame").BackgroundColor3 = vb[2]
+            Instance.new("Frame").BorderSizePixel = 0
+            Instance.new("Frame").Position = UDim2.new(0,0110024447, 0, -0,787234068, 0)
+            Instance.new("Frame").Size = UDim2.new(0, 400, 0, 534)
+            Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "SectionC"
+            Instance.new("TextLabel").Parent, Instance.new("TextLabel").Name = Instance.new("Frame"), "SectionText"
+            Instance.new("TextLabel").BackgroundColor3 = vb[4]
+            Instance.new("TextLabel").BackgroundTransparency = 1
+            Instance.new("TextLabel").Position = UDim2.new(-0,230000004, 0, 0, 0)
+            Instance.new("TextLabel").Size = UDim2.new(1, 0, 0, 32)
+            Instance.new("TextLabel").Font = Enum.Font.GothamBold
+            Instance.new("TextLabel").Text = "  " .. (b or "Section")
+            Instance.new("TextLabel").TextColor3 = vb[4]
+            Instance.new("TextLabel").TextSize = 16
+            Instance.new("TextLabel").TextXAlignment = Enum.TextXAlignment.Left
+            Instance.new("UIListLayout").Parent, Instance.new("UIListLayout").Name = Instance.new("Frame"), "SectionL"
+            Instance.new("UIListLayout").HorizontalAlignment = Enum.HorizontalAlignment.Center
+            Instance.new("UIListLayout").SortOrder = Enum.SortOrder.LayoutOrder
+            Instance.new("UIListLayout").Padding = UDim.new(0, 4)
+            Instance.new("UIListLayout"):GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+              va.Size = UDim2.new(0, 400, 0, vb.AbsoluteContentSize.Y + 8)
+            end)
+            return {
+              Create = function(a, b, c, d, e)
+                a = a
+                if b:lower() == "button" then
+                  Instance.new("Frame").Name = "ButtonMain"
+                  Instance.new("Frame").Parent = va
+                  Instance.new("Frame").BackgroundColor3 = vb[1]
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,00875000004, 0, 0,189473689, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 393, 0, 36)
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "ButtonMainC"
+                  Instance.new("TextLabel").Parent, Instance.new("TextLabel").Name = Instance.new("Frame"), "ButtonText"
+                  Instance.new("TextLabel").BackgroundColor3 = vb[4]
+                  Instance.new("TextLabel").BackgroundTransparency = 1
+                  Instance.new("TextLabel").Position = UDim2.new(0, 0, 2,11927627E-07, 0)
+                  Instance.new("TextLabel").Size = UDim2.new(0,335000008, 0, 1, 0)
+                  Instance.new("TextLabel").Font = Enum.Font.Gotham
+                  Instance.new("TextLabel").Text = "   " .. (c or "Text")
+                  Instance.new("TextLabel").TextColor3 = vb[4]
+                  Instance.new("TextLabel").TextSize = 14
+                  Instance.new("TextLabel").TextXAlignment = Enum.TextXAlignment.Left
+                  Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "BtnHolder"
+                  Instance.new("Frame").BackgroundColor3 = vb[4]
+                  Instance.new("Frame").BackgroundTransparency = 1
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,735000014, 0, 0, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 100, 0, 36)
+                  Instance.new("UIListLayout").Parent, Instance.new("UIListLayout").Name = Instance.new("Frame"), "BtnHolderL"
+                  Instance.new("UIListLayout").FillDirection = Enum.FillDirection.Horizontal
+                  Instance.new("UIListLayout").HorizontalAlignment = Enum.HorizontalAlignment.Right
+                  Instance.new("UIListLayout").SortOrder = Enum.SortOrder.LayoutOrder
+                  Instance.new("UIListLayout").VerticalAlignment = Enum.VerticalAlignment.Center
+                  Instance.new("UIListLayout").Padding = UDim.new(0, 4)
+                  Instance.new("TextButton").Parent, Instance.new("TextButton").Name = Instance.new("Frame"), "Btn"
+                  Instance.new("TextButton").BackgroundColor3 = vb[2]
+                  Instance.new("TextButton").BorderSizePixel = 0
+                  Instance.new("TextButton").Position = UDim2.new(0,735000014, 0, 0,111000001, 0)
+                  Instance.new("TextButton").Size = UDim2.new(0, 100, 0, 28)
+                  Instance.new("TextButton").AutoButtonColor = false
+                  Instance.new("TextButton").Font = Enum.Font.Gotham
+                  Instance.new("TextButton").Text = e or {}.BtnText or "Click Here!"
+                  Instance.new("TextButton").TextColor3 = vb[4]
+                  Instance.new("TextButton").TextSize = 14
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextButton"), "BtnC"
+                  Instance.new("TextButton").Parent, Instance.new("TextButton").Name = Instance.new("Frame"), "BtnInfo"
+                  Instance.new("TextButton").BackgroundColor3 = vb[2]
+                  Instance.new("TextButton").BorderSizePixel = 0
+                  Instance.new("TextButton").Position = UDim2.new(0,720000029, 0, 0,111111112, 0)
+                  Instance.new("TextButton").Size = UDim2.new(0, 28, 0, 28)
+                  Instance.new("TextButton").AutoButtonColor = false
+                  Instance.new("TextButton").Font = Enum.Font.Gotham
+                  Instance.new("TextButton").Text = "?"
+                  Instance.new("TextButton").TextColor3 = vb[4]
+                  Instance.new("TextButton").TextSize = 20
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextButton"), "BtnInfoC"
+                  Instance.new("TextButton").MouseButton1Click:Connect(function()
+                    spawn(function()
+                      va:Ripple(vb)
+                    end)
+                    vc()
+                  end)
+                  Instance.new("TextButton").MouseButton1Click:Connect(function()
+                    spawn(function()
+                      va:Ripple(vb)
+                    end)
+                    vc:CreateNotification(vd, ve, 10000, true)
+                  end)
+                  return (Instance.new("Frame"))
+                end
+                if b:lower() == "toggle" then
+                  vd.flags[e or {}.Flag] = e or {}.Default or false
+                  vd.objstorage[e or {}.Flag] = Instance.new("Frame")
+                  vd.funcstorage[e or {}.Flag] = d or function()
+                  end
+                  Instance.new("Frame").Name = "ToggleMain"
+                  Instance.new("Frame").Parent = va
+                  Instance.new("Frame").BackgroundColor3 = vb[1]
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,00875000004, 0, 0,189473689, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 393, 0, 36)
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "ToggleMainC"
+                  Instance.new("TextLabel").Parent, Instance.new("TextLabel").Name = Instance.new("Frame"), "ToggleText"
+                  Instance.new("TextLabel").BackgroundColor3 = vb[4]
+                  Instance.new("TextLabel").BackgroundTransparency = 1
+                  Instance.new("TextLabel").Size = UDim2.new(0,335000008, 0, 1, 0)
+                  Instance.new("TextLabel").Font = Enum.Font.Gotham
+                  Instance.new("TextLabel").Text = "   " .. (c or "Text")
+                  Instance.new("TextLabel").TextColor3 = vb[4]
+                  Instance.new("TextLabel").TextSize = 14
+                  Instance.new("TextLabel").TextXAlignment = Enum.TextXAlignment.Left
+                  Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "ToggleDisplay"
+                  Instance.new("Frame").BackgroundColor3 = vb[2]
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,78371501, 0, 0,111111112, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 48, 0, 28)
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "ToggleDisplayC"
+                  Instance.new("TextButton").Parent, Instance.new("TextButton").Name = Instance.new("Frame"), "ToggleSwitch"
+                  Instance.new("TextButton").AnchorPoint = Vector2.new(0, 0,5)
+                  Instance.new("TextButton").BackgroundColor3 = vb[1]
+                  Instance.new("TextButton").BorderSizePixel = 0
+                  Instance.new("TextButton").Position = UDim2.new(0, 3, 0,5, 0)
+                  Instance.new("TextButton").Size = UDim2.new(0, 28, 0, 22)
+                  Instance.new("TextButton").AutoButtonColor = false
+                  Instance.new("TextButton").Text = ""
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextButton"), "ToggleSwitchC"
+                  Instance.new("TextButton").Parent, Instance.new("TextButton").Name = Instance.new("Frame"), "ToggleInfo"
+                  Instance.new("TextButton").BackgroundColor3 = vb[2]
+                  Instance.new("TextButton").BorderSizePixel = 0
+                  Instance.new("TextButton").Position = UDim2.new(0,918206036, 0, 0,111111112, 0)
+                  Instance.new("TextButton").Size = UDim2.new(0, 28, 0, 28)
+                  Instance.new("TextButton").AutoButtonColor = false
+                  Instance.new("TextButton").Font = Enum.Font.Gotham
+                  Instance.new("TextButton").Text = "?"
+                  Instance.new("TextButton").TextColor3 = vb[4]
+                  Instance.new("TextButton").TextSize = 20
+                  Instance.new("TextButton").TextWrapped = true
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextButton"), "ToggleInfoC"
+                  if vd.flags[e or {}.Flag] == true then
+                    vd:UpdateToggle(e or {}.Flag, true)
+                  end
+                  Instance.new("TextButton").MouseButton1Click:Connect(function()
+                    spawn(function()
+                      va:Ripple(vb)
+                    end)
+                    vc:UpdateToggle(vd.Flag)
+                  end)
+                  Instance.new("TextButton").MouseButton1Click:Connect(function()
+                    spawn(function()
+                      va:Ripple(vb)
+                    end)
+                    vc:CreateNotification(vd, ve, 10000, true)
+                  end)
+                  return (Instance.new("Frame"))
+                end
+                if b:lower() == "label" then
+                  Instance.new("TextLabel").Name = "Label"
+                  Instance.new("TextLabel").Parent = va
+                  Instance.new("TextLabel").BackgroundColor3 = vb[4]
+                  Instance.new("TextLabel").BackgroundTransparency = 1
+                  Instance.new("TextLabel").Position = UDim2.new(0,33255738, 0, 0,754098356, 0)
+                  Instance.new("TextLabel").Size = UDim2.new(1, 0, 0, 32)
+                  Instance.new("TextLabel").Font = Enum.Font.Gotham
+                  Instance.new("TextLabel").Text = "    " .. (c or "Text")
+                  Instance.new("TextLabel").TextColor3 = vb[4]
+                  Instance.new("TextLabel").TextSize = 14
+                  Instance.new("TextLabel").TextXAlignment = Enum.TextXAlignment.Left
+                  return (Instance.new("TextLabel"))
+                end
+                if b:lower() == "textbox" then
+                  vd.flags[e or {}.Flag] = e or {}.Default or "Text"
+                  Instance.new("Frame").Name = "TextboxMain"
+                  Instance.new("Frame").Parent = va
+                  Instance.new("Frame").BackgroundColor3 = vb[1]
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,00875000004, 0, 0,189473689, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 393, 0, 36)
+                  Instance.new("TextLabel").Parent, Instance.new("TextLabel").Name = Instance.new("Frame"), "TextboxText"
+                  Instance.new("TextLabel").BackgroundColor3 = vb[4]
+                  Instance.new("TextLabel").BackgroundTransparency = 1
+                  Instance.new("TextLabel").Position = UDim2.new(0, 0, 2,11927627E-07, 0)
+                  Instance.new("TextLabel").Size = UDim2.new(0,335000008, 0, 1, 0)
+                  Instance.new("TextLabel").Font = Enum.Font.Gotham
+                  Instance.new("TextLabel").Text = "   " .. (c or "Text")
+                  Instance.new("TextLabel").TextColor3 = vb[4]
+                  Instance.new("TextLabel").TextSize = 14
+                  Instance.new("TextLabel").TextXAlignment = Enum.TextXAlignment.Left
+                  Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "BoxHolderMain"
+                  Instance.new("Frame").BackgroundColor3 = vb[4]
+                  Instance.new("Frame").BackgroundTransparency = 1
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,735000014, 0, 0, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 100, 0, 36)
+                  Instance.new("UIListLayout").Parent, Instance.new("UIListLayout").Name = Instance.new("Frame"), "BoxHolderMainL"
+                  Instance.new("UIListLayout").FillDirection = Enum.FillDirection.Horizontal
+                  Instance.new("UIListLayout").HorizontalAlignment = Enum.HorizontalAlignment.Right
+                  Instance.new("UIListLayout").SortOrder = Enum.SortOrder.LayoutOrder
+                  Instance.new("UIListLayout").VerticalAlignment = Enum.VerticalAlignment.Center
+                  Instance.new("TextBox").Parent, Instance.new("UIListLayout").Padding = Instance.new("Frame"), UDim.new(0, 4)
+                  Instance.new("TextBox").BackgroundColor3 = vb[2]
+                  Instance.new("TextBox").BorderSizePixel = 0
+                  Instance.new("TextBox").Position = UDim2.new(0, 0, 0,111111112, 0)
+                  Instance.new("TextBox").Size = UDim2.new(0, 100, 0, 28)
+                  Instance.new("TextBox").Font = Enum.Font.Gotham
+                  Instance.new("TextBox").Text = vd.flags[e or {}.Flag]
+                  Instance.new("TextBox").TextColor3 = vb[4]
+                  Instance.new("TextBox").TextSize = 14
+                  Instance.new("TextBox").Size = UDim2.new(0, Instance.new("TextBox").TextBounds.X + 18, 0, 26)
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextBox"), "TextboxC"
+                  Instance.new("TextButton").Parent, Instance.new("TextButton").Name = Instance.new("Frame"), "BoxInfo"
+                  Instance.new("TextButton").BackgroundColor3 = vb[2]
+                  Instance.new("TextButton").BorderSizePixel = 0
+                  Instance.new("TextButton").Position = UDim2.new(0,918206036, 0, 0,111111112, 0)
+                  Instance.new("TextButton").Size = UDim2.new(0, 28, 0, 28)
+                  Instance.new("TextButton").AutoButtonColor = false
+                  Instance.new("TextButton").Font = Enum.Font.Gotham
+                  Instance.new("TextButton").Text = "?"
+                  Instance.new("TextButton").TextColor3 = vb[4]
+                  Instance.new("TextButton").TextSize = 20
+                  Instance.new("TextButton").TextWrapped = true
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextButton"), "BoxInfoC"
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "TextboxMainC"
+                  Instance.new("TextBox").FocusLost:Connect(function()
+                    if va.Text == "" then
+                      va.Text = vb.flags[vc.Flag]
+                    end
+                    vb.flags[vc.Flag] = va.Text
+                    vd(va.Text)
+                  end)
+                  vc:Tween(Instance.new("TextBox"), {
+                    0,1,
+                    "Linear",
+                    "InOut"
+                  }, {
+                    Size = UDim2.new(0, Instance.new("TextBox").TextBounds.X + 18, 0, 26)
+                  })
+                  Instance.new("TextBox"):GetPropertyChangedSignal("TextBounds"):Connect(function()
+                    va:Tween(vb, {
+                      0,1,
+                      "Linear",
+                      "InOut"
+                    }, {
+                      Size = UDim2.new(0, vb.TextBounds.X + 18, 0, 26)
+                    })
+                  end)
+                  Instance.new("TextButton").MouseButton1Click:Connect(function()
+                    spawn(function()
+                      va:Ripple(vb)
+                    end)
+                    vc:CreateNotification(vd, ve, 10000, true)
+                  end)
+                  return (Instance.new("Frame"))
+                end
+                if b:lower() == "keybind" then
+                  if not e or {}.Flag then
+                    return
+                  end
+                  if e or {}.Default then
+                  end
+                  vd.flags[e or {}.Flag] = e or {}.Default or "None"
+                  Instance.new("Frame").Name = "KeybindMain"
+                  Instance.new("Frame").Parent = va
+                  Instance.new("Frame").BackgroundColor3 = vb[1]
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,00875000004, 0, 0,189473689, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 393, 0, 36)
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "KeybindMainC"
+                  Instance.new("TextLabel").Parent, Instance.new("TextLabel").Name = Instance.new("Frame"), "KeybindText"
+                  Instance.new("TextLabel").BackgroundColor3 = vb[4]
+                  Instance.new("TextLabel").BackgroundTransparency = 1
+                  Instance.new("TextLabel").Position = UDim2.new(0, 0, 2,11927627E-07, 0)
+                  Instance.new("TextLabel").Size = UDim2.new(0,335000008, 0, 1, 0)
+                  Instance.new("TextLabel").Font = Enum.Font.Gotham
+                  Instance.new("TextLabel").Text = "   " .. (c or "Text")
+                  Instance.new("TextLabel").TextColor3 = vb[4]
+                  Instance.new("TextLabel").TextSize = 14
+                  Instance.new("TextLabel").TextXAlignment = Enum.TextXAlignment.Left
+                  Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "BindHolder"
+                  Instance.new("Frame").BackgroundColor3 = vb[4]
+                  Instance.new("Frame").BackgroundTransparency = 1
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,735000014, 0, 0, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 100, 0, 36)
+                  Instance.new("UIListLayout").Parent, Instance.new("UIListLayout").Name = Instance.new("Frame"), "BindHolderL"
+                  Instance.new("UIListLayout").FillDirection = Enum.FillDirection.Horizontal
+                  Instance.new("UIListLayout").HorizontalAlignment = Enum.HorizontalAlignment.Right
+                  Instance.new("UIListLayout").SortOrder = Enum.SortOrder.LayoutOrder
+                  Instance.new("UIListLayout").VerticalAlignment = Enum.VerticalAlignment.Center
+                  Instance.new("UIListLayout").Padding = UDim.new(0, 4)
+                  Instance.new("TextButton").Parent, Instance.new("TextButton").Name = Instance.new("Frame"), "KeybindValue"
+                  Instance.new("TextButton").BackgroundColor3 = vb[2]
+                  Instance.new("TextButton").BorderSizePixel = 0
+                  Instance.new("TextButton").Position = UDim2.new(0,735000014, 0, 0,111000001, 0)
+                  Instance.new("TextButton").Size = UDim2.new(0, 100, 0, 28)
+                  Instance.new("TextButton").AutoButtonColor = false
+                  Instance.new("TextButton").Text, Instance.new("TextButton").Font = e or {}.Default.Name or {
+                    RightControl = "Right Ctrl",
+                    LeftControl = "Left Ctrl",
+                    LeftShift = "Left Shift",
+                    RightShift = "Right Shift",
+                    Semicolon = ";",
+                    Quote = "\"",
+                    LeftBracket = "[",
+                    RightBracket = "]",
+                    Equals = "=",
+                    Minus = "-",
+                    RightAlt = "Right Alt",
+                    LeftAlt = "Left Alt"
+                  }[e or {}.Default.Name] or "None", Enum.Font.Gotham
+                  Instance.new("TextButton").TextColor3 = vb[4]
+                  Instance.new("TextButton").TextSize = 14
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextButton"), "KeybindValueC"
+                  Instance.new("TextButton").Parent, Instance.new("TextButton").Name = Instance.new("Frame"), "BindInfo"
+                  Instance.new("TextButton").BackgroundColor3 = vb[2]
+                  Instance.new("TextButton").BorderSizePixel = 0
+                  Instance.new("TextButton").Position = UDim2.new(0,918206036, 0, 0,111111112, 0)
+                  Instance.new("TextButton").Size = UDim2.new(0, 28, 0, 28)
+                  Instance.new("TextButton").AutoButtonColor = false
+                  Instance.new("TextButton").Font = Enum.Font.Gotham
+                  Instance.new("TextButton").Text = "?"
+                  Instance.new("TextButton").TextColor3 = vb[4]
+                  Instance.new("TextButton").TextSize = 20
+                  Instance.new("TextButton").TextWrapped = true
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextButton"), "BindInfoC"
+                  spawn(function()
+                    wait()
+                    va.Size = UDim2.new(0, va.TextBounds.X + 18, 0, 28)
+                  end)
+                  Instance.new("TextButton"):GetPropertyChangedSignal("TextBounds"):Connect(function()
+                    va:Tween(vb, {
+                      0,1,
+                      "Linear",
+                      "InOut"
+                    }, {
+                      Size = UDim2.new(0, vb.TextBounds.X + 18, 0, 28)
+                    })
+                  end)
+                  Instance.new("TextButton").MouseButton1Click:Connect(function()
+                    va.binding = true
+                    vb.Text = "..."
+                    if vc.UserInputService.InputBegan:wait().KeyCode and not ve[vc.UserInputService.InputBegan:wait().KeyCode.Name] then
+                      va.flags[vg] = vc.UserInputService.InputBegan:wait()
+                      vb.Text = vh[vc.UserInputService.InputBegan:wait().UserInputType.Name or vc.UserInputService.InputBegan:wait().KeyCode.Name] or vc.UserInputService.InputBegan:wait().UserInputType.Name or vc.UserInputService.InputBegan:wait().KeyCode.Name
+                    elseif va.flags[vg] then
+                      if not pcall(function()
+                        return va.flags[vb].UserInputType
+                      end) then
+                        vb.Text = vh[tostring(va.flags[vg])] or tostring(va.flags[vg])
+                      else
+                        if va.flags[vg].UserInputType ~= Enum.UserInputType.Keyboard then
+                        end
+                        vb.Text = vh[va.flags[vg].UserInputType.Name or va.flags[vg].KeyCode.Name] or va.flags[vg].UserInputType.Name or va.flags[vg].KeyCode.Name
+                      end
+                    end
+                    wait(0,1)
+                    va.binding = false
+                  end)
+                  if vd.flags[e or {}.Flag] then
+                    Instance.new("TextButton").Text = {
+                      RightControl = "Right Ctrl",
+                      LeftControl = "Left Ctrl",
+                      LeftShift = "Left Shift",
+                      RightShift = "Right Shift",
+                      Semicolon = ";",
+                      Quote = "\"",
+                      LeftBracket = "[",
+                      RightBracket = "]",
+                      Equals = "=",
+                      Minus = "-",
+                      RightAlt = "Right Alt",
+                      LeftAlt = "Left Alt"
+                    }[tostring(vd.flags[e or {}.Flag].Name)] or tostring(vd.flags[e or {}.Flag].Name)
+                  end
+                  vd.binds[e or {}.Flag] = {
+                    location = vd.flags,
+                    callback = function()
+                      va()
+                    end
+                  }
+                  Instance.new("TextButton").MouseButton1Click:Connect(function()
+                    spawn(function()
+                      va:Ripple(vb)
+                    end)
+                    vc:CreateNotification(vd, ve, 10000, true)
+                  end)
+                  return (Instance.new("Frame"))
+                end
+                if b:lower() == "slider" then
+                  vd.flags[e or {}.Flag] = e or {}.Default or e or {}.Min or 1
+                  vd.objstorage[e or {}.Flag] = Instance.new("Frame")
+                  vd.funcstorage[e or {}.Flag] = d or function()
+                  end
+                  Instance.new("Frame").Name = "SliderMain"
+                  Instance.new("Frame").Parent = va
+                  Instance.new("Frame").BackgroundColor3 = vb[1]
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,00875000004, 0, 0,633879781, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 393, 0, 50)
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "SliderMainC"
+                  Instance.new("TextLabel").Parent, Instance.new("TextLabel").Name = Instance.new("Frame"), "SliderText"
+                  Instance.new("TextLabel").BackgroundColor3 = vb[4]
+                  Instance.new("TextLabel").BackgroundTransparency = 1
+                  Instance.new("TextLabel").Position = UDim2.new(0, 0, 2,11927627E-07, 0)
+                  Instance.new("TextLabel").Size = UDim2.new(0,335000008, 0, 0, 36)
+                  Instance.new("TextLabel").Font = Enum.Font.Gotham
+                  Instance.new("TextLabel").Text = "   " .. (c or "Text")
+                  Instance.new("TextLabel").TextColor3 = vb[4]
+                  Instance.new("TextLabel").TextSize = 14
+                  Instance.new("TextLabel").TextXAlignment = Enum.TextXAlignment.Left
+                  Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "SliderHolder"
+                  Instance.new("Frame").BackgroundColor3 = vb[4]
+                  Instance.new("Frame").BackgroundTransparency = 1
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,735000014, 0, 0, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 100, 0, 36)
+                  Instance.new("UIListLayout").Parent, Instance.new("UIListLayout").Name = Instance.new("Frame"), "SliderHolderL"
+                  Instance.new("UIListLayout").FillDirection = Enum.FillDirection.Horizontal
+                  Instance.new("UIListLayout").HorizontalAlignment = Enum.HorizontalAlignment.Right
+                  Instance.new("UIListLayout").SortOrder = Enum.SortOrder.LayoutOrder
+                  Instance.new("UIListLayout").VerticalAlignment = Enum.VerticalAlignment.Center
+                  Instance.new("UIListLayout").Padding = UDim.new(0, 4)
+                  Instance.new("TextBox").Parent, Instance.new("TextBox").Name = Instance.new("Frame"), "SliderVal"
+                  Instance.new("TextBox").BackgroundColor3 = vb[2]
+                  Instance.new("TextBox").BorderSizePixel = 0
+                  Instance.new("TextBox").Position = UDim2.new(0,511450171, 0, 0,111111112, 0)
+                  Instance.new("TextBox").Size = UDim2.new(0, 48, 0, 28)
+                  Instance.new("TextBox").Text, Instance.new("TextBox").Font = e or {}.Default or e or {}.Min or 1, Enum.Font.Gotham
+                  Instance.new("TextBox").TextColor3 = vb[4]
+                  Instance.new("TextBox").TextSize = 14
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextBox"), "SliderValC"
+                  Instance.new("TextButton").Parent, Instance.new("TextButton").Name = Instance.new("Frame"), "SliderInfo"
+                  Instance.new("TextButton").BackgroundColor3 = vb[2]
+                  Instance.new("TextButton").BorderSizePixel = 0
+                  Instance.new("TextButton").Position = UDim2.new(0,918206036, 0, 0,111111112, 0)
+                  Instance.new("TextButton").Size = UDim2.new(0, 28, 0, 28)
+                  Instance.new("TextButton").AutoButtonColor = false
+                  Instance.new("TextButton").Font = Enum.Font.Gotham
+                  Instance.new("TextButton").Text = "?"
+                  Instance.new("TextButton").TextColor3 = vb[4]
+                  Instance.new("TextButton").TextSize = 20
+                  Instance.new("TextButton").TextWrapped = true
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextButton"), "SliderInfoC"
+                  Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "SliderBar"
+                  Instance.new("Frame").BackgroundColor3 = vb[2]
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,00800000038, 0, 0,720000029, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 385, 0, 10)
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "SliderBarC"
+                  Instance.new("Frame").Parent, Instance.new("Frame").Name = Instance.new("Frame"), "SliderFill"
+                  Instance.new("Frame").BackgroundColor3 = vb[3]
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Size = UDim2.new(0, 86, 0, 10)
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "SliderFillC"
+                  Instance.new("TextBox").Size = UDim2.new(0, Instance.new("TextBox").TextBounds.X + 18, 0, 26)
+                  Instance.new("TextBox"):GetPropertyChangedSignal("TextBounds"):Connect(function()
+                    va:Tween(vb, {
+                      0,1,
+                      "Linear",
+                      "InOut"
+                    }, {
+                      Size = UDim2.new(0, vb.TextBounds.X + 18, 0, 26)
+                    })
+                  end)
+                  vd:UpdateSlider(e or {}.Flag, e or {}.Default or e or {}.Min or 1, e or {}.Min or 1, e or {}.Max or 10, e or {}.Precise or false)
+                  Instance.new("Frame").InputBegan:Connect(function(a)
+                    a = a
+                    if a.UserInputType == Enum.UserInputType.MouseButton1 then
+                      va:UpdateSlider(vb, nil, vc, vd, ve)
+                      vg = true
+                    end
+                  end)
+                  Instance.new("Frame").InputEnded:Connect(function(a)
+                    a = a
+                    if a.UserInputType == Enum.UserInputType.MouseButton1 then
+                      va = false
+                    end
+                  end)
+                  ve.UserInputService.InputChanged:Connect(function(a)
+                    a = a
+                    if va and a.UserInputType == Enum.UserInputType.MouseMovement then
+                      vb:UpdateSlider(vc, nil, vd, ve, vg)
+                    end
+                  end)
+                  Instance.new("TextBox").Focused:Connect(function()
+                    va = true
+                  end)
+                  Instance.new("TextBox").FocusLost:Connect(function()
+                    va = false
+                    if not tonumber(vb.Text) then
+                      vc:UpdateSlider(vd, ve or vg, vg, vh)
+                    end
+                  end)
+                  Instance.new("TextBox"):GetPropertyChangedSignal("Text"):Connect(function()
+                    if not va then
+                      return
+                    end
+                    vb.Text = vb.Text:gsub("%D+", "")
+                    if not tonumber(vb.Text) then
+                      vb.Text = vb.Text:gsub("%D+", "")
+                    elseif not vc[vb.Text] then
+                      if tonumber(vb.Text) > vd then
+                        vb.Text = tostring(vd)
+                      end
+                      ve:UpdateSlider(vg, tonumber(vd) or value, vh, vd)
+                    end
+                  end)
+                  Instance.new("TextButton").MouseButton1Click:Connect(function()
+                    spawn(function()
+                      va:Ripple(vb)
+                    end)
+                    vc:CreateNotification(vd, ve, 10000, true)
+                  end)
+                  return (Instance.new("Frame"))
+                end
+                if b:lower() == "dropdown" then
+                  if e or {}.PlayerList or false then
+                    (function()
+                      va = {}
+                      for fd, fe in next, vb.Players:GetChildren() do
+                        if fe.Name ~= vb.Players.LocalPlayer.Name then
+                          table.insert(va, fe.Name)
+                        elseif vc then
+                          table.insert(va, fe.Name)
+                        end
+                      end
+                    end)()
+                    ve.Players.PlayerAdded:Connect(function(a)
+                      a = a
+                      table.insert(va, a.Name)
+                      if table.find(va, "No players found.") then
+                        table.remove(va, table.find(va, "No players found."))
+                      end
+                      vb:Refresh(va)
+                    end)
+                    ve.Players.PlayerRemoving:Connect(function(a)
+                      a = a
+                      table.remove(va, table.find(va, a.Name))
+                      if #va == 0 then
+                        va = {
+                          "No players found."
+                        }
+                      end
+                      vb:Refresh(va)
+                    end)
+                  else
+                  end
+                  vd.flags[e or {}.Flag] = e or {}.Options or {
+                    "No Options Found."
+                  }[1]
+                  Instance.new("Frame").Name = "DropdownMain"
+                  Instance.new("Frame").Parent = va
+                  Instance.new("Frame").BackgroundColor3 = vb[1]
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,00875000004, 0, 0,781420767, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 393, 0, 44)
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "DropdownMainC"
+                  Instance.new("TextLabel").Parent, Instance.new("TextLabel").Name = Instance.new("Frame"), "DropdownTitle"
+                  Instance.new("TextLabel").BackgroundColor3 = vb[4]
+                  Instance.new("TextLabel").BackgroundTransparency = 1
+                  Instance.new("TextLabel").Size = UDim2.new(0,335000008, 0, -0,200000003, 36)
+                  Instance.new("TextLabel").Font = Enum.Font.Gotham
+                  Instance.new("TextLabel").Text = "   " .. (c or "Text")
+                  Instance.new("TextLabel").TextColor3 = vb[4]
+                  Instance.new("TextLabel").TextSize = 14
+                  Instance.new("TextLabel").TextXAlignment = Enum.TextXAlignment.Left
+                  Instance.new("TextLabel").Parent, Instance.new("TextLabel").Name = Instance.new("Frame"), "DropdownOption"
+                  Instance.new("TextLabel").BackgroundColor3 = vb[4]
+                  Instance.new("TextLabel").BackgroundTransparency = 1
+                  Instance.new("TextLabel").Position = UDim2.new(0, 0, 0,479999989, 0)
+                  Instance.new("TextLabel").Size = UDim2.new(0,365534335, 0, -0,340000004, 36)
+                  Instance.new("TextLabel").Font = Enum.Font.Gotham
+                  Instance.new("TextLabel").Text = "   " .. vd.flags[e or {}.Flag]
+                  Instance.new("TextLabel").TextColor3 = vb[5]
+                  Instance.new("TextLabel").TextSize = 14
+                  Instance.new("TextLabel").TextXAlignment = Enum.TextXAlignment.Left
+                  Instance.new("TextButton").Parent, Instance.new("TextButton").Name = Instance.new("Frame"), "Back"
+                  Instance.new("TextButton").BackgroundColor3 = vb[2]
+                  Instance.new("TextButton").BackgroundTransparency = 1
+                  Instance.new("TextButton").BorderSizePixel = 0
+                  Instance.new("TextButton").Position = UDim2.new(0,839694679, 0, 0,201909155, 0)
+                  Instance.new("TextButton").Size = UDim2.new(0, 26, 0, 26)
+                  Instance.new("TextButton").AutoButtonColor = false
+                  Instance.new("TextButton").Font = Enum.Font.Gotham
+                  Instance.new("TextButton").Text = "+"
+                  Instance.new("TextButton").TextColor3 = vb[4]
+                  Instance.new("TextButton").TextSize = 30
+                  Instance.new("TextButton").TextWrapped = true
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextButton"), "BackC"
+                  Instance.new("TextButton").Parent, Instance.new("TextButton").Name = Instance.new("Frame"), "DropdownInfo"
+                  Instance.new("TextButton").AnchorPoint = Vector2.new(0, 0,5)
+                  Instance.new("TextButton").BackgroundColor3 = vb[2]
+                  Instance.new("TextButton").BorderSizePixel = 0
+                  Instance.new("TextButton").Position = UDim2.new(0,917999983, 0, 0,5, 0)
+                  Instance.new("TextButton").Size = UDim2.new(0, 28, 0, 38)
+                  Instance.new("TextButton").AutoButtonColor = false
+                  Instance.new("TextButton").Font = Enum.Font.Gotham
+                  Instance.new("TextButton").Text = "?"
+                  Instance.new("TextButton").TextColor3 = vb[4]
+                  Instance.new("TextButton").TextSize = 20
+                  Instance.new("TextButton").TextWrapped = true
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextButton"), "DropdownInfoC"
+                  Instance.new("Frame").Name = "DropdownBottom"
+                  Instance.new("Frame").Parent = va
+                  Instance.new("Frame").BackgroundColor3 = vb[1]
+                  Instance.new("Frame").BorderSizePixel = 0
+                  Instance.new("Frame").Position = UDim2.new(0,00875000004, 0, 0,607272744, 0)
+                  Instance.new("Frame").Size = UDim2.new(0, 393, 0, 0)
+                  Instance.new("Frame").ClipsDescendants = true
+                  Instance.new("Frame").Visible = false
+                  Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                  Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("Frame"), "DropdownBottomC"
+                  Instance.new("ScrollingFrame").Parent, Instance.new("ScrollingFrame").Name = Instance.new("Frame"), "DropdownOptions"
+                  Instance.new("ScrollingFrame").Active = true
+                  Instance.new("ScrollingFrame").BackgroundColor3 = vb[4]
+                  Instance.new("ScrollingFrame").BackgroundTransparency = 1
+                  Instance.new("ScrollingFrame").BorderSizePixel = 0
+                  Instance.new("ScrollingFrame").Size = UDim2.new(0, 393, 0, 196)
+                  Instance.new("ScrollingFrame").ScrollBarThickness = 0
+                  Instance.new("UIListLayout").Parent, Instance.new("UIListLayout").Name = Instance.new("ScrollingFrame"), "DropdownOptionsL"
+                  Instance.new("UIListLayout").HorizontalAlignment = Enum.HorizontalAlignment.Center
+                  Instance.new("UIListLayout").SortOrder = Enum.SortOrder.LayoutOrder
+                  Instance.new("UIPadding").Parent, Instance.new("UIListLayout").Padding = Instance.new("ScrollingFrame"), UDim.new(0, 4)
+                  Instance.new("UIPadding").PaddingTop = UDim.new(0, 4)
+                  Instance.new("UIListLayout"):GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+                    va.CanvasSize = UDim2.new(0, 0, 0, vb.AbsoluteContentSize.Y + 8)
+                  end)
+                  Instance.new("UIListLayout"):GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+                    if not va then
+                      return
+                    end
+                    if 192 > vb.AbsoluteContentSize.X then
+                    end
+                    vc:Tween(vd, {
+                      0,3,
+                      "Sine",
+                      "InOut"
+                    }, {
+                      Size = UDim2.new(0, 393, 0, vb.AbsoluteContentSize.Y + 4 + 4 or 0)
+                    })
+                  end)
+                  Instance.new("TextButton").MouseButton1Click:Connect(function()
+                    va = not va
+                    if not va then
+                      spawn(function()
+                        wait(0,25)
+                        va.Visible = false
+                      end)
+                    else
+                      vb.Visible = true
+                    end
+                    if 192 > vc.AbsoluteContentSize.Y then
+                    end
+                    vd:Tween(ve, {
+                      0,3,
+                      "Sine",
+                      "InOut"
+                    }, {
+                      Rotation = 45 or 0
+                    })
+                    vd:Tween(vb, {
+                      0,3,
+                      "Sine",
+                      "InOut"
+                    }, {
+                      Size = UDim2.new(0, 393, 0, vc.AbsoluteContentSize.Y + 4 + 4 or 0)
+                    })
+                  end)
+                  for fA, fS in next, e or {}.Options or {
+                    "No Options Found."
+                  }, nil do
+                    (function(a)
+                      a = a
+                      table.insert(va, (Instance.new("TextButton")))
+                      Instance.new("TextButton").Name = "Option"
+                      Instance.new("TextButton").Parent = vb
+                      Instance.new("TextButton").BackgroundColor3 = vc[2]
+                      Instance.new("TextButton").BorderSizePixel = 0
+                      Instance.new("TextButton").Position = UDim2.new(0,372773528, 0, 0,0224719103, 0)
+                      Instance.new("TextButton").Size = UDim2.new(0, 384, 0, 28)
+                      Instance.new("TextButton").AutoButtonColor = false
+                      Instance.new("TextButton").Font = Enum.Font.Gotham
+                      Instance.new("TextButton").Text = a
+                      Instance.new("TextButton").TextColor3 = vc[4]
+                      Instance.new("TextButton").TextSize = 14
+                      Instance.new("TextButton").TextWrapped = true
+                      Instance.new("UICorner").CornerRadius = UDim.new(0, 4)
+                      Instance.new("UICorner").Parent, Instance.new("UICorner").Name = Instance.new("TextButton"), "OptionC"
+                      Instance.new("TextButton").MouseButton1Click:Connect(function()
+                        va.flags[vb] = vc
+                        vd.Text = "   " .. vc
+                        spawn(ve)
+                        spawn(function()
+                          va(vb)
+                        end)
+                      end)
+                    end)(fS)
+                  end
+                  Instance.new("TextButton").MouseButton1Click:Connect(function()
+                    spawn(function()
+                      va:Ripple(SliderInfo)
+                    end)
+                    vb:CreateNotification(vc, vd, 10000, true)
+                  end)
+                  return {
+                    Refresh = function(a, b)
+                      a = a
+                      for fg, fh in next, va, nil do
+                        fh:Destroy()
+                      end
+                      va = {}
+                      for fg, fh in next, b, nil do
+                        vb(fh)
+                      end
+                    end,
+                    ToggleVisible = function(a)
+                      a = a
+                      if va then
+                        vb()
+                        vc.Visible = false
+                      else
+                        vc.Visible = true
+                      end
+                    end
+                  }
+                end
+              end
+            }
+          end
+        }
+      end
+    }
+  end
+}
